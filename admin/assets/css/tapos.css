@@ -1,0 +1,18 @@
+body{
+  font-family: 'Raleway', sans-serif !important;
+}
+
+h1,h2,h3,h4,h5{
+  font-family: 'Kulim Park', sans-serif !important;
+}
+a{
+    font-family: 'Raleway', sans-serif !important;
+}
+.social-box ul li{
+    font-size: 10px !important;
+}
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+}
