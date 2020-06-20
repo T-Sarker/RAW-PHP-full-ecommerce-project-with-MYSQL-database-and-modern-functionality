@@ -28,9 +28,9 @@
         <h2>Product Add</h2>
         <?php
 
-            if (isset($insertProduct) && $insertProduct!=0) {
+            if (isset($insertProduct) && $insertProduct!=false) {
                 
-                    echo $insertImgProduct;
+                    echo $insertProduct;
                 }
             ?>
         <form class="mt-3" action="" method="POST" enctype="multipart/form-data">
@@ -170,7 +170,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="warranty">Product Warranty</label>
-                        <input type="text" name="warranty" class="form-control" id="warranty" aria-describedby="warranty" placeholder="Enter Product Warranty" required>
+                        <input type="text" name="warranty" class="form-control" id="warranty" aria-describedby="warranty" placeholder="Enter Product Warranty">
                     </div>
                 </div>
             </div>

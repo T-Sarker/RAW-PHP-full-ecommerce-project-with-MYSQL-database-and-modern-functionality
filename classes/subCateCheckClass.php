@@ -17,7 +17,7 @@ class SubCateCheckClass{
 			$catId = $this->fm->validator($catId);
 			$catId = mysqli_real_escape_string($this->db->link,$catId);
 
-			$query = "SELECT * FROM tbl_subcategory WHERE category='$catId'";
+			$query = "SELECT * FROM tbl_subcategory WHERE category='$catId' AND status=1";
 
 			$result = $this->db->select($query);
 

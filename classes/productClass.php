@@ -93,8 +93,12 @@ class ProductClass{
 
 			$updateAt = date('d-m-Y');
 
-			$warranty = $this->fm->validator($post['warranty']);
-			$warranty = mysqli_real_escape_string($this->db->link,$warranty);
+			if (!empty($post['brand'])) {
+				$warranty = $this->fm->validator($post['warranty']);
+				$warranty = mysqli_real_escape_string($this->db->link,$warranty);
+			}else{
+				$warranty = ' ';
+			}
 
 			$txt = $name.$updateAt.$category;
 
@@ -113,6 +117,8 @@ class ProductClass{
 	            if (!empty(array_filter($_FILES['files']['name']))) {
 
 	                foreach ($_FILES['files']['name'] as $key => $val) {
+
+	                	// echo $_FILES['files']['name'][$key];
 	                    // File upload path
 	                    $fileName =  rand(0,76990).basename($_FILES['files']['name'][$key]);
 
@@ -128,18 +134,9 @@ class ProductClass{
 
 	                            $query = "INSERT INTO tbl_pimage(image,altText,puId,status) VALUES('$targetFilePath','$altText','$productUid',0)";
 	                            
-	                            $result = $this->db->insert($query);
+	                            $result1 = $this->db->insert($query);
 
-	                            if ($result && $result != false) {
-
-	                                return '<div class="alert alert-success" role="alert">
-	                                                      Success !
-	                                                    </div>';
-	                            } else {
-	                                return '<div class="alert alert-danger" role="alert">
-	                                                      Something Went Wrong. image Upload Failed !
-	                                                    </div>';
-	                            }
+	                            
 
 	                        } else {
 	                            return '<div class="alert alert-danger" role="alert">
@@ -152,6 +149,9 @@ class ProductClass{
 	                                                    </div>';
 	                    }
 	                }
+
+
+
 	                
 	            }		 
 			}else{
@@ -160,6 +160,17 @@ class ProductClass{
 
 					return $fieldError;
 			}
+
+			if ($result && $result != false && $result1 && $result1 != false) {
+
+                return '<div class="alert alert-success" role="alert">
+                                      Success !
+                                    </div>';
+            } else {
+                return '<div class="alert alert-danger" role="alert">
+                                      Something Went Wrong. image Upload Failed !
+                                    </div>';
+            }
 
 
 		}
@@ -381,6 +392,13 @@ class ProductClass{
 
 			$updateAt = date('d-m-Y');
 
+			if (!empty($post['brand'])) {
+				$warranty = $this->fm->validator($post['warranty']);
+				$warranty = mysqli_real_escape_string($this->db->link,$warranty);
+			}else{
+				$warranty = ' ';
+			}
+
 			$warranty = $this->fm->validator($post['warranty']);
 			$warranty = mysqli_real_escape_string($this->db->link,$warranty);
 
@@ -388,142 +406,130 @@ class ProductClass{
 			$id = mysqli_real_escape_string($this->db->link,$id);
 			$id = trim($id);
 
-			$targetDir = "../uploads/";
+			
+            		
+            		$targetDir = "../uploads/";
 
-	            $allowTypes = array('jpg', 'png', 'jpeg', 'JPG', 'PNG');
+		            $allowTypes = array('jpg', 'png', 'jpeg', 'JPG', 'PNG');
 
-	            if (!empty(array_filter($_FILES['files']['name']))) {
+		            if (!empty(array_filter($_FILES['files']['name']))) {
 
-	            	$query = "SELECT * FROM tbl_pimage WHERE puId='$id'";
-	            	$result = $this->db->select($query);
-
-	            	if (isset($result) && $result!=false) {
-	            		
-	            		while ($img = $result->fetch_assoc()) {
-	            			
-	            			//getting image name from db
-	            			$imgName = $img['image'];
-	            			// $image = explode('../uploads/',$imgName);
-	            			//unlinking the image
-	                		$unLink = unlink (__DIR__ . '/' . $imgName[1]);
-
-
-	            			echo $image[1];
-	            		}
-	            	}else{
-	            		echo "This Product has no Image!So enter Images";
-	            	}
-	            }else{
-	            	echo "<script> alert('has no image'); </script>";
-
-	            }
-
-
-
-			// $query="UPDATE tbl_product SET
-   //          							name ='$name',
-   //          							category ='$category',
-   //          							subCategory ='$subCategory',
-   //          							pdetails ='$pdetails',
-   //          							pFeature ='$pFeature',
-   //          							price ='$price',
-   //          							discount ='$discount',
-   //          							Poption ='$option',
-   //          							available ='$available',
-   //          							Sdate ='$Sdate',
-   //          							Cdate ='$Cdate',
-   //          							flashQuantity='$quantity'
-   //          							WHERE productUid='$id'";
-
-			// $result = $this->db->update($query);
-
-			// if ($result) {
+		            	if (!empty($id)) {
 				
-			//  echo "<script>window.location.href = '?pid=$id&puId=$id'</script>";
-			// }else{
+							$query="UPDATE tbl_product SET
+			            							name ='$name',
+			            							category ='$category',
+			            							subCategory ='$subCategory',
+			            							brand ='$Pbrand',
+			            							pdetails ='$pdetails',
+			            							pFeature ='$pFeature',
+			            							price ='$price',
+			            							discount ='$Pdiscount',
+			            							Poption ='$option',
+			            							available ='$available',
+			            							warrenty = '$warranty',
+			            							updateAt = '$updateAt' WHERE productUid='$id'";
 
-			// 	$fieldError = "<span style='color:red'>Category couldn't be Updated!!</span>";
+			            	$resUpdate = $this->db->update($query);
+			            }
 
-			// 		return $fieldError;
-			// }
+		            	$query = "SELECT * FROM tbl_pimage WHERE puId='$id'";
+		            	$result = $this->db->select($query);
 
+		            	if (isset($result) && $result!=false) {
+		            		
+		            		while ($img = $result->fetch_assoc()) {
+		            			
+		            			//getting image name from db
+		            			$imgName = $img['image'];
+		            			$image = explode('../uploads/',$imgName);
+		            			//unlinking the image
+		                		$unLink = unlink (__DIR__ . '/../uploads/' . $image[1]);
+
+		                		if ($unLink) {
+		                			
+		                			$query = "DELETE FROM tbl_pimage WHERE puId='$id'";
+		                			$res = $this->db->delete($query);
+		                		}
+		                	}
+
+		                			if (isset($res) && $res!=false) {
+
+
+		                				
+		                				foreach ($_FILES['files']['name'] as $key => $val) {
+						                    // File upload path
+						                    $fileName =  rand(0,76990).basename($_FILES['files']['name'][$key]);
+
+						                    $targetFilePath = $targetDir . $fileName;
+
+						                    // Check whether file type is valid
+						                    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+						                    if (in_array($fileType, $allowTypes)) {
+
+						                        // Upload file to server
+						                        if (move_uploaded_file($_FILES["files"]["tmp_name"][$key], $targetFilePath)) {
+
+						                            $query = "INSERT INTO tbl_pimage(image,altText,puId,status) VALUES('$targetFilePath','$altText','$id',0)";
+						                            
+						                            $result1 = $this->db->insert($query);
+
+						                            
+
+						                        } else {
+						                            return '<div class="alert alert-danger" role="alert">
+						                                                      Something Went Wrong. image Upload Failed !
+						                                                    </div>';
+						                        }
+						                    } else {
+						                        return '<div class="alert alert-danger" role="alert">
+						                                                      Wrong Format. Action Failed !
+						                                                    </div>';
+						                    }
+						                }
+		                			}
+		                		// }
+		            		// }
+		            	}else{
+		            		echo "This Product has no Image!So enter Images";
+		            	}
+		            }else{
+		            	
+	            		if (!empty($id)) {
+			
+							$query="UPDATE tbl_product SET
+			            							name ='$name',
+			            							category ='$category',
+			            							subCategory ='$subCategory',
+			            							brand ='$Pbrand',
+			            							pdetails ='$pdetails',
+			            							pFeature ='$pFeature',
+			            							price ='$price',
+			            							discount ='$Pdiscount',
+			            							Poption ='$option',
+			            							available ='$available',
+			            							warrenty = '$warranty',
+			            							updateAt = '$updateAt' WHERE productUid='$id'";
+
+			            	$resUpdate = $this->db->update($query);
+			            }
+		            }
+            	
+
+
+            	if (($resUpdate && $resUpdate != false) || ($result1 && $result1 != false)) {
+
+                   echo "<script>window.location.href = 'productList.php';</script>";
+
+                } else {
+                    return '<div class="alert alert-danger" role="alert">
+                                          Something Went Wrong. image Upload Failed !
+                                        </div>';
+                }
+			
 
 		}
-
-
-
-		// public function updateProductImageIntoDB($post,$files,$id,$puId){
-
-		// 	$altText = $post['altText'];
-
-		// 	$puId = $this->fm->validator($puId);
-		// 	$puId = mysqli_real_escape_string($this->db->link,$puId);
-
-		// 	$id = $this->fm->validator($id);
-		// 	$id = mysqli_real_escape_string($this->db->link,$id);
-
-		// 	$targetDir = "uploads/";
-		//     $allowTypes = array('jpg','png','jpeg','gif');
-
-		//     $query1 = "SELECT * FROM tbl_pimage WHERE puId='$id'";
-
-		//     $result1 = $this->db->select($query1);
-
-
-		//     if(!empty(array_filter($_FILES['files']['name']))){
-
-		//     	if ($result1) {
-			    	
-		// 	    	while ($getRes = $result1->fetch_assoc()) {
-
-		// 	    		$img = $getRes['image'];
-		// 				$imgName = chop($img,'uploads/');
-		// 				$unLink = unlink($imgName);
-			    		
-		// 	    		$query2 = "DELETE FROM tbl_pimage WHERE puId='$id'";
-		// 	    		$result2 = $this->db->delete($query2);
-		// 	    	}
-		// 	    }
-
-		//         foreach($_FILES['files']['name'] as $key=>$val){
-		//             // File upload path
-		//             $fileName = basename($_FILES['files']['name'][$key]);
-		//             $targetFilePath = $targetDir . $fileName;
-		            
-		//             // Check whether file type is valid
-		//             $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-
-		//             if(in_array($fileType, $allowTypes)){
-
-		//                 // Upload file to server
-		//                 if(move_uploaded_file($_FILES["files"]["tmp_name"][$key], $targetFilePath)){
-
-		//                 	$query = "INSERT INTO tbl_pimage(image,altText,puId,status) VALUES('$targetFilePath','$altText','$puId',0)";
-
-		//                 	$result = $this->db->insert($query);
-
-		//                 	if ($result) {
-		//                 		echo "<script>window.location.href = 'productList.php';</script>";
-		//                 	}else{
-		//                 		return 0;
-		//                 	}
-
-		//                 }else{
-
-		                	
-
-		//                     return "file can't be moved";
-		//                 }
-		//             }else{
-		//                 return "wrong file type";
-		//             }
-		//         }		 
-		// 	}else{
-		// 		echo "<script>window.location.href = 'productList.php';</script>";
-		// 	}
-
-
-		// }
 
 
 	}

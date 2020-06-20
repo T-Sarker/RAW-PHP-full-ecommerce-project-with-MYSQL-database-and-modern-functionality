@@ -203,7 +203,7 @@ class CategoryClasses{
 			$id = mysqli_real_escape_string($this->db->link,$id);
 			echo $id = trim($id);
 
-			$query = "UPDATE tbl_subcategory SET status=0 WHERE subCateUid='$id'";
+			$query = "UPDATE tbl_subcategory SET status=1 WHERE subCateUid='$id'";
 
 			$result = $this->db->update($query);
 

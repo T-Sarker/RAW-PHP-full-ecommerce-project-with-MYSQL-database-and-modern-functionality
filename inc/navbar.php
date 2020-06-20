@@ -12,6 +12,7 @@
         $logo = mysqli_fetch_assoc($getLogo);
     }
 ?>
+
 <header class="header style7">
     <div class="top-bar">
         <div class="container">

@@ -60,7 +60,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="name">Product Name</label>
-                        <input type="text" name="name" value="<?php echo $getSproduct['name']; ?>" class="form-control" id="name" aria-describedby="name" placeholder="Enter Product Name"  maxlength="45" required>
+                        <input type="text" name="name" value="<?php echo $getSproduct['name']; ?>" class="form-control" id="name" aria-describedby="name" placeholder="Enter Product Name" required>
                     </div>
                 </div>
             </div>

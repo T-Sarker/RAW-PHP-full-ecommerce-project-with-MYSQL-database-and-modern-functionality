@@ -149,7 +149,7 @@ class SliderClasses{
 		        	
 		        	$img = $imgs['image'];
 	                $imgName = explode('../uploads/',$img);
-	                $unLink = unlink (__DIR__ . '/../uploads/' . $imgName[1]);
+	                $unLink = unlink (__DIR__ .'/../uploads/'. $imgName[1]);
 
 	                if ($unLink) {
 	                	

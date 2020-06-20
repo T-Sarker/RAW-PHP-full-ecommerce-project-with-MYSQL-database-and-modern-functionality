@@ -1,3 +1,141 @@
+<?php
+
+    include 'classes/loadPaginationClass.php';
+
+    $lp = new LoadPaginationOnClick();
+
+    $total = $lp->rowsCount('tbl_product','NEW ARRIVALS');
+?>
+<style>
+    
+.loading {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 400px;
+  margin: 0 auto;
+}
+.loading::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    -webkit-transform: scale(1, 1);
+  }
+  25% {
+    -webkit-transform: scale(3, 3);
+  }
+  50% {
+    -webkit-transform: scale(1, 1);
+  }
+}
+@-moz-keyframes fadeIn {
+  0% {
+    -moz-transform: scale(1, 1);
+  }
+  25% {
+    -moz-transform: scale(3, 3);
+  }
+  50% {
+    -moz-transform: scale(1, 1);
+  }
+}
+@keyframes fadeIn {
+  0% {
+    -webkit-transform: scale(1, 1);
+    -moz-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
+    transform: scale(1, 1);
+  }
+  25% {
+    -webkit-transform: scale(3, 3);
+    -moz-transform: scale(3, 3);
+    -ms-transform: scale(3, 3);
+    -o-transform: scale(3, 3);
+    transform: scale(3, 3);
+  }
+  50% {
+    -webkit-transform: scale(1, 1);
+    -moz-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
+    transform: scale(1, 1);
+  }
+}
+.dot {
+  height: 8px;
+  width: 8px;
+  background: #fff;
+  float: left;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+.dot:nth-child(1) {
+  background-color: #fff;
+  -webkit-animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -moz-animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+.dot:nth-child(2) {
+  background-color: #fff;
+  -webkit-animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -moz-animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+.dot:nth-child(3) {
+  background-color: #fff;
+  -webkit-animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -moz-animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0.6s;
+  -moz-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+.dot:nth-child(4) {
+  background-color: #fff;
+  -webkit-animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -moz-animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  animation: fadeIn 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-delay: 0.8s;
+  -moz-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+}
+
+</style>
 <div class="fullwidth-template">
         <div class="home-slider-banner">
             <div class="container">
@@ -445,20 +583,20 @@
         
         <div class="banner-wrapp rows-space-65">
             <div class="container">
-                <div class="banner">
-                    <div class="item-banner style17">
-                        <div class="inner">
-                            <div class="banner-content">
-                                <h3 class="title">Living thing grows</h3>
-                                <div class="description">
-                                    You have no car & Are you <br/>ready to grow? come & shop with us!
-                                </div>
-                                <div class="banner-price">
-                                    Price from:
-                                    <span class="number-price">$45.00</span>
-                                </div>
-                                <a href="#" class="button btn-shop-now">Shop now</a>
-                                <a href="#" class="button btn-view-collection">View more</a>
+                <div class="banner" style="width:100%;height: 290px;background: red;margin-bottom: 20px;">
+                    <div class="item-banner style17" style="width:100%;height:100%;">
+                    <?php
+                        $getBanner = $hc->getBannerDetails('bottom');
+
+                        if (isset($getBanner) && !empty($getBanner) && $getBanner!=false) {
+                            
+                            $banner = mysqli_fetch_assoc($getBanner);
+                        }
+                    ?>
+                        <div class="inner" style="background-image:url(<?php echo str_replace('../', '',$banner['image']); ?>);background-size:cover;height:100%;">
+                            <div class="banner-content" style="height:100%;">
+                                
+                                <a href="<?php echo $banner['offerLink']; ?>" class="button btn-view-collection" style="position:relative;top:100%;">View more</a>
                             </div>
                         </div>
                     </div>
@@ -467,13 +605,15 @@
         </div>
         <div class="teamo-tabs  default rows-space-40">
             <div class="container">
+            
+
                 <div class="tab-head">
                     <ul class="tab-link">
                         <li class="active">
-                            <a data-toggle="tab" aria-expanded="true" href="#bestseller">Bestseller</a>
+                            <a data-toggle="tab" aria-expanded="true" href="#new_arrivals">New Arrivals </a>
                         </li>
                         <li class="">
-                            <a data-toggle="tab" aria-expanded="true" href="#new_arrivals">New Arrivals </a>
+                            <a data-toggle="tab" aria-expanded="true" href="#bestseller">Bestseller</a>
                         </li>
                         <li class="">
                             <a data-toggle="tab" aria-expanded="true" href="#top-rated">Top Rated</a>
@@ -481,11 +621,30 @@
                     </ul>
                 </div>
                 <div class="tab-container">
-                    <div id="bestseller" class="tab-panel active">
+                    <div id="new_arrivals" class="tab-panel active">
                         <div class="teamo-product">
-                            <ul class="row list-products auto-clear equal-container product-grid" id="defaultProduct">
+                        <div class="loaderIcon" style="position: absolute;width: 100%;height: 100%;background: #1a272d;z-index: 100000;left:0;opacity: 0.9;">
+                            <section class="loading">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                              </section>
 
-                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                            <!-- <p style="color: #fff;text-align: center;position: relative;top: 50%;text-transform:uppercase">Loading...</p> -->
+                        </div>
+                            <ul class="row list-products auto-clear equal-container product-grid" id="defaultProduct">
+                            <?php
+                                $getProduct = $fpc->getLimitedProduct();
+                                $condition='';
+
+                                if (isset($getProduct) && $getProduct!=false) {
+                                    
+                                    while ($product = $getProduct->fetch_assoc()) {
+                                        $condition=$product['Poption'];
+                                        
+                            ?>
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1 newArival">
                                     <div class="product-inner equal-element">
                                         <div class="product-top">
                                             <div class="flash">
@@ -517,7 +676,7 @@
                                         </div>
                                         <div class="product-info">
                                             <h5 class="product-name product_title">
-                                                <a href="#">Fiddle Leaf Fig</a>
+                                                <a href="#"><?php echo $product['name']; ?></a>
                                             </h5>
                                             <div class="group-info">
                                                 <div class="stars-rating">
@@ -540,10 +699,19 @@
                                         </div>
                                     </div>
                                 </li>
+                                <?php
+
+                                    }
+                                }
+                                ?>
                             </ul>
+                            <span class="btn btn-success" id="loadMore">Load More</span>
+                            <input type="hidden" value="0" id="startRow">
+                            <input type="hidden" value="<?php echo $condition; ?>" id="condition">
+                            <input type="hidden" value="<?php echo $total; ?>" id="totalRow">
                         </div>
                     </div>
-                    <div id="new_arrivals" class="tab-panel">
+                    <div id="bestseller" class="tab-panel">
                         <div class="teamo-product">
                             <ul class="row list-products auto-clear equal-container product-grid">
                                 <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
