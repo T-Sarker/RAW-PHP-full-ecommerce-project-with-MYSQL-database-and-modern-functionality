@@ -91,7 +91,7 @@ class ProductClass{
 			$available = $this->fm->validator($post['available']);
 			$available = mysqli_real_escape_string($this->db->link,$available);
 
-			$updateAt = date('d-m-Y');
+			$updateAt = date('Y-m-d');
 
 			if (!empty($post['brand'])) {
 				$warranty = $this->fm->validator($post['warranty']);

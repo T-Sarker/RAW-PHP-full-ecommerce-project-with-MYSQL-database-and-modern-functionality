@@ -172,8 +172,18 @@
 <script src="assets/js/jquery.scrollbar.min.js"></script>
 <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyC3nDHy1dARR-Pa_2jjPCjvsOR4bcILYsM'></script>
 <script src="assets/js/frontend-plugin.js"></script>
-<script src="assets/js/proajax.js"></script>
+<script type="text/javascript" src="assets/js/proajax.js"></script>
+<script> $(document).ready(function(){
+        console.log(cat);
+        console.log(sub);
+        var category = cat;
+        var subCategory = sub;
+        var perPage=2;
 
+        paginateData(category,subCategory,1,perPage);
+
+        getPagination(perPage,category,subCategory);
+   }); </script>
 </body>
 
 </html>

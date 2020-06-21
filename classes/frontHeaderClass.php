@@ -24,7 +24,7 @@ class HeaderClass{
 
 		public function getNavbarCategoryFromDB(){
 
-			$query = "SELECT * FROM tbl_category ORDER BY cateId";
+			$query = "SELECT * FROM tbl_category WHERE status=1 ORDER BY cateId";
 
 			$result = $this->db->select($query);
 
@@ -37,7 +37,7 @@ class HeaderClass{
 			$cateId = $this->fm->validator($cateId);
 			$cateId = mysqli_real_escape_string($this->db->link,$cateId);
 
-			$query = "SELECT * FROM tbl_subcategory WHERE category='$cateId'";
+			$query = "SELECT * FROM tbl_subcategory WHERE category='$cateId' AND status=1";
 
 			$result = $this->db->select($query);
 

@@ -675,7 +675,22 @@ class FrontProductClass{
 			$condition = $this->fm->validator($condition);
 			$condition = mysqli_real_escape_string($this->db->link,$condition);
 
-			$query ="SELECT * FROM tbl_product WHERE Poption LIKE '%$condition%' LIMIT $startLimit,$range";
+			$query ="SELECT * FROM tbl_product  WHERE Poption LIKE '%$condition%' ORDER BY productId DESC LIMIT $startLimit,$range";
+
+			$result = $this->db->select($query);
+
+			return $result;
+		}
+
+		public function getLoadMoreProductsFromDB2($startLimit,$range){
+
+			$startLimit = $this->fm->validator($startLimit);
+			$startLimit = mysqli_real_escape_string($this->db->link,$startLimit);
+
+			$range = $this->fm->validator($range);
+			$range = mysqli_real_escape_string($this->db->link,$range);
+
+			$query ="SELECT * FROM tbl_product ORDER BY productId DESC LIMIT $startLimit,$range";
 
 			$result = $this->db->select($query);
 
@@ -685,7 +700,120 @@ class FrontProductClass{
 
 		public function getLimitedProduct(){
 
-			$query = "SELECT * FROM tbl_product LIMIT 0,2";
+			$query = "SELECT * FROM tbl_product WHERE Poption LIKE '%NEW ARRIVALS%' ORDER BY productId DESC LIMIT 0,4 ";
+
+			$result = $this->db->select($query);
+
+			return $result;
+		}
+
+
+		public function getProductSingleImage($proId){
+
+			$proId = $this->fm->validator($proId);
+			$proId = mysqli_real_escape_string($this->db->link,$proId);
+
+			$query = "SELECT * FROM tbl_pimage WHERE puId='$proId' LIMIT 1";
+
+			$result = $this->db->select($query);
+
+			if (isset($result) && $result!=false) {
+				
+				$images = mysqli_fetch_assoc($result);
+
+				return $images['image'];
+			}
+		}
+
+
+		public function getAllProductFromDB(){
+
+			$query = "SELECT * FROM tbl_product ORDER BY productId DESC LIMIT 0,4 ";
+
+			$result = $this->db->select($query);
+
+			return $result;
+		}
+
+
+		public function getCategoryIdFromDB($category){
+
+			$category = $this->fm->validator($category);
+			$category = mysqli_real_escape_string($this->db->link,$category);
+
+
+
+			$query = "SELECT cateUid FROM tbl_category WHERE category='$category' LIMIT 1";
+
+			$result = $this->db->select($query);
+
+			if (isset($result) && $result!=false) {
+				
+				 $id = mysqli_fetch_row($result);
+
+				 return $id[0];
+
+			}else{
+
+				echo "<script>window.location.href = '404.php';</script>";
+
+			}
+		}
+
+
+		public function getSubCategoryIdFromDB($subCategory){
+
+			$subCategory = $this->fm->validator($subCategory);
+			$subCategory = mysqli_real_escape_string($this->db->link,$subCategory);
+
+			$query = "SELECT subCateUid FROM tbl_subcategory WHERE subCategory='$subCategory' LIMIT 1";
+
+			$result = $this->db->select($query);
+
+			if (isset($result) && $result!=false) {
+				
+				 $id = mysqli_fetch_row($result);
+
+				 return $id[0];
+
+			}else{
+
+				echo "<script>window.location.href = '404.php';</script>";
+
+			}
+		}
+
+
+
+		public function getcategoryWiseProduct($startPage,$perPage,$category){
+
+			$query = "SELECT * FROM tbl_product WHERE category='$category' AND pause=0 LIMIT $startPage,$perPage";
+
+			$result = $this->db->select($query);
+
+			return $result;
+		}
+
+
+		public function getTotalResultsOfCategory($category){
+
+			$query = "SELECT * FROM tbl_product WHERE category='$category' AND pause=0";
+
+			$result = $this->db->select($query);
+
+			if (isset($result) && $result!=false) {
+				
+				$rows = mysqli_num_rows($result);
+
+				return $rows;
+			}
+		}
+
+
+
+		public function getSubCategoryWiseProduct($startPage,$perPage,$category,$subCategory){
+
+			$query = "SELECT * FROM tbl_product WHERE category='$category' AND subCategory='$subCategory'";
 
 			$result = $this->db->select($query);
 

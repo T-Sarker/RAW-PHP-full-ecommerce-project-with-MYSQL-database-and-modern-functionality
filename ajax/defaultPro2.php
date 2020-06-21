@@ -11,9 +11,8 @@
 		
 		$startLimit = $_POST['row'];
 		$range = $_POST['range'];
-		$condition = $_POST['condition'];
 
-		$getMoreProduct = $fpc->getLoadMoreProductsFromDB($startLimit,$range,$condition);
+		$getMoreProduct = $fpc->getLoadMoreProductsFromDB2($startLimit,$range);
 
 		if (isset($getMoreProduct) && $getMoreProduct!=false) {
 			

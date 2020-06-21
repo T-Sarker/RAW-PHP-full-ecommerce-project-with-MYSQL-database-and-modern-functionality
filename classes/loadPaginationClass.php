@@ -31,5 +31,25 @@ class LoadPaginationOnClick{
 			}
 
 		}
+
+
+
+		public function singleRowsCount($tableName){
+
+			$query = "SELECT * FROM ".$tableName." WHERE pause=0";
+
+			$result = $this->db->select($query);
+
+			if (isset($result) && $result!=false) {
+				
+				$rows = mysqli_num_rows($result);
+
+				return $rows;
+				
+			}else{
+				return false;
+			}
+
+		}
 }
 ?>

@@ -1,9 +1,11 @@
 <?php
     include 'classes/frontHeaderClass.php';
     include 'classes/frontProductClass.php';
+    include 'classes/simplePagination.php';
 
     $hc = new HeaderClass();
     $fpc = new FrontProductClass();
+    // $pc = new PaginatiorClasses();
 
     $getLogo = $hc->getLogoForMainHeader();
 
@@ -102,7 +104,7 @@
                         ?>
                             
                             <li class="menu-item menu-item-has-children">
-                                <a title="Accessories" href="#" class="teamo-menu-item-title"><?php echo $category['category']; ?></a>
+                                <a title="Accessories" href="category/<?php echo str_replace(' ','-',$category['category']); ?>" class="teamo-menu-item-title"><?php echo $category['category']; ?></a>
                                 <span class="toggle-submenu"></span>
                                 <?php
                                     $getSubCategory = $hc->getSubCategoryFromDB($cateId);
@@ -116,7 +118,7 @@
                                           
                                 ?>
                                     <li class="menu-item">
-                                        <a title="Audio" href="#" class="teamo-item-title"><?php echo $subCate['subCategory'] ?></a>
+                                        <a title="Audio" href="products/<?php echo $category['category']; ?>/<?php echo $subCate['subCategory'] ?>" class="teamo-item-title"><?php echo $subCate['subCategory'] ?></a>
                                     </li>
                                     <?php
                                         }

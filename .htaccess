@@ -1,0 +1,18 @@
+# Turn Rewrite Engine On
+RewriteEngine on
+
+# NC makes the rule non case sensitive
+# L makes this the last rule that this specific condition will match
+# $ in the regular expression makes the matching stop so that "customblah" will not work
+
+# Rewrite for user.php?u=xxxxx . here \s will check for space still will work if we have space in url but also - or + or - will work 
+#too. then have to remove them where we $_GET them 
+#- always goes at the very end of the expressions
+
+RewriteRule ^category/([0-9a-zA-Z_\s-]+)$ products.php?category=$1 [NC,L]
+
+# Rewrite for products.php?category=1&subcategory=Title-Goes-Here
+RewriteRule ^products/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+) products.php?category=$1&Pcategory=$2 [NC,L]
+
+#404 rediretion
+#ErrorDocument 404 http://localhost/fujael/404.php

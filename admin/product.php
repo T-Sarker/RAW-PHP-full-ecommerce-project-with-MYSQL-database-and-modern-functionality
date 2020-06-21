@@ -102,6 +102,7 @@
                     <div class="form-group">
                         <label for="files">Product Images</label>
                         <input type="file" name="files[]" multiple class="form-control" id="files" aria-describedby="files" required>
+                        <small>Image Size:650px X 650px</small>
                     </div>
                 </div>
                 <div class="col">
